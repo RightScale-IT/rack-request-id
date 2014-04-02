@@ -7,7 +7,7 @@ module Rack
     end
 
     def call(env)
-      request_id = env['HTTP_X_REQUEST_ID'] || SecureRandom.hex(16)
+      request_id = env['HTTP_X_REQUEST_ID'] || SecureRandom.uuid
 
       # Used by some things
       Thread.current[:request_id] = request_id
