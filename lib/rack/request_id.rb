@@ -17,7 +17,8 @@ module Rack
 
       status, headers, body = @app.call(env)
       headers['X-Request-Id'] ||= request_id
-      [status, headers, body]
+      env['HTTP_X_REQUEST_ID'] = request_id
+      @app.call(env).tap { |_status, headers, _body| headers["X-Request-Id"] = request_id }
     end
   end
 end
